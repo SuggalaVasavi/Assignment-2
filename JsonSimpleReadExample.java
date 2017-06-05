@@ -63,10 +63,10 @@ public class JsonSimpleRead {
 			// loop to get the dynamic key
 			Set<String> primeKeys = Obj.keySet();
 			//changes set to String array
-			String a[]= primeKeys.toArray(new String[primeKeys.size()]);
-			for(int i = 0; i <a.length; i++) {
+			String key[]= primeKeys.toArray(new String[primeKeys.size()]);
+			for(int i = 0; i <key.length; i++) {
 				//converting array to String
-				String string=a[i].toString();
+				String string=key[i].toString();
 				// path for output file
 				FileWriter outFile = new FileWriter("D:/Users/Suggala.vasa/workspace1/json/src/pet/"+string+".json");
 				PrintWriter out = new PrintWriter(outFile);
