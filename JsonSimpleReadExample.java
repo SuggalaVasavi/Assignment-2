@@ -1,4 +1,4 @@
-package json;
+
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,7 +10,7 @@ import java.util.Set;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-public class JsonSimpleReadExample {
+public class JsonSimpleRead {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
@@ -21,6 +21,7 @@ public class JsonSimpleReadExample {
 		printJsonObject(obj,"paths");
 		saveFile(obj,"definitions");
 	}
+	//method which can get the value based on key
 	static String getKeyValue(JSONObject obj , String key){
 		try {
 			JSONObject jsonObject=obj;
@@ -31,7 +32,7 @@ public class JsonSimpleReadExample {
 		return key;
 
 	}
-
+	// method to get the list of all "paths" available in the shared json.
 	static String getPath(JSONObject obj , String key){
 		try {
 			JSONObject posts = (JSONObject) obj.get(key);
@@ -42,34 +43,36 @@ public class JsonSimpleReadExample {
 		return key;
 
 	}
-
+	//method which can get the value based on key
 	static void printJsonObject(JSONObject jsonObj,String keys) {
 		JSONObject keyvalue = (JSONObject)jsonObj.get(keys);
 		//for nested objects iteration if required
+		System.out.println(keyvalue);
 		if (keyvalue instanceof JSONObject){
 			printJsonObject(keyvalue, keys);
 
 			System.out.println("key: "+ keys + " value: " + keyvalue); //Print key and value
 		}
 	}
+	//method to get the list of all "definitions" in the shared json. Create a file for each definitions
 	public static void saveFile(JSONObject obj,String keys)
 			throws IOException {
 		try{
 
-			JSONObject posts = (JSONObject) obj.get(keys);
+			JSONObject Obj = (JSONObject) obj.get(keys);
 			// loop to get the dynamic key
-			Set<String> primeKeys = posts.keySet();
+			Set<String> primeKeys = Obj.keySet();
 			//changes set to String array
 			String a[]= primeKeys.toArray(new String[primeKeys.size()]);
 			for(int i = 0; i <a.length; i++) {
 				//converting array to String
-				String abc=a[i].toString();
+				String string=a[i].toString();
 				// path for output file
-				FileWriter outFile = new FileWriter("D:/Users/Suggala.vasa/workspace1/json/src/pet/"+abc+".json");
+				FileWriter outFile = new FileWriter("D:/Users/Suggala.vasa/workspace1/json/src/pet/"+string+".json");
 				PrintWriter out = new PrintWriter(outFile);
-				JSONObject keyvalue1 = (JSONObject) posts.get(abc);
+				JSONObject filedata = (JSONObject) Obj.get(string);
 				//to print in the file
-				out.println(keyvalue1);
+				out.println(filedata);
 				out.close();
 			}
 		}
